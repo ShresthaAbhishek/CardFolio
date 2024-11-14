@@ -7,7 +7,7 @@ import { Tilt } from "react-tilt";
 export const CreditCard = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [greeting, setGreeting] = useState("Hello!"); // Initial greeting
-  const greetings = ["Hola", "Ciao", "Namaste", "Hello"]; // Array of greetings
+  const greetings = ["Hola", "Ciao", "नमस्ते", "Hello", "Bonjour", "你好", "مرحبًا"]; // Array of greetings
 
   const handleClick = () => {
     setIsClicked(!isClicked);
