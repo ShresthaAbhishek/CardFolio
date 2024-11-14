@@ -33,7 +33,7 @@
   right: 0;
   bottom: 0;
   border-radius: 25px;
-  padding: 3px;
+  padding: 4px;
   background: linear-gradient(90deg, #4A90E2, #9C2CF3, #FF007C, #F5A623, #4A90E2);
   background-size: 400% 400%;
   animation: gradientAnimation 5s ease infinite;
