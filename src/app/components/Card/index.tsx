@@ -1,50 +1,119 @@
+// app/components/CreditCard/CreditCard.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import styles from "./CreditCard.module.css";
 import { Tilt } from "react-tilt";
+import styles from "./CreditCard.module.css";
 
-export const CreditCard = () => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [greeting, setGreeting] = useState("Hello!"); // Initial greeting
-  const greetings = ["Hola", "Ciao", "Namaste", "Hello"]; // Array of greetings
+interface CreditCardProps {
+  name?: string;
+}
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+export const CreditCard: React.FC<CreditCardProps> = ({ 
+  name = "Abhishek Shrestha" 
+}) => {
+  const [activeCard, setActiveCard] = useState(0);
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [greetingIndex, setGreetingIndex] = useState(0);
+  const greetings = ["Hola", "你好", "Ciao", "नमस्ते", "Hello", "Bonjour", "مرحبًا"];
+  
+  const cards = [
+    { id: 0, name: "Abhishek Shrestha", color: "from-black to-[#1a1a1a]" },
+    { id: 1, name: "John Doe", color: "from-blue-900 to-blue-700" },
+    { id: 2, name: "Jane Smith", color: "from-purple-900 to-purple-700" },
+    { id: 3, name: "Alex Johnson", color: "from-green-900 to-green-700" },
+  ];
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setGreeting((prev) => {
-        // Cycle through the greetings array
-        const currentIndex = greetings.indexOf(prev);
-        const nextIndex = (currentIndex + 1) % greetings.length;
-        return greetings[nextIndex];
-      });
-    }, 4000); // Change greeting every 4 seconds
+      setIsAnimating(false);
+      setTimeout(() => {
+        setGreetingIndex((prevIndex) => (prevIndex + 1) % greetings.length);
+        setIsAnimating(true);
+      }, 500);
+    }, 4000);
 
-    // Clean up the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, []);
+  }, [greetings.length]);
+
+  const handleCardClick = (index: number) => {
+    if (expandedCard === index) {
+      setExpandedCard(null);
+    } else {
+      setExpandedCard(index);
+      setActiveCard(index);
+    }
+  };
+
+  const getCardStyle = (index: number) => {
+    const isActive = activeCard === index;
+    const position = index - activeCard;
+    const isExpanded = expandedCard === index;
+    
+    let transform = "";
+    let zIndex = cards.length - Math.abs(position);
+
+    if (isExpanded) {
+      transform = "translateY(-60px)";
+      zIndex = cards.length + 1;
+    } else if (position > 0) {
+      // Cards below active card
+      transform = `translateY(-${position * 40}px) scale(${1 - position * 0.05})`;
+      zIndex = cards.length - position;
+    } else if (position < 0) {
+      // Cards above active card
+      transform = `translateY(${position * 40}px) scale(${1 + position * 0.05})`;
+      zIndex = cards.length + position;
+    }
+
+    return { transform, zIndex };
+  };
+
+  const tiltOptions = {
+    reverse: false,
+    max: 15,
+    perspective: 1000,
+    scale: 1.05,
+    speed: 1000,
+    transition: true,
+    axis: null,
+    reset: true,
+    easing: "cubic-bezier(.03,.98,.52,.99)",
+  };
 
   return (
-    <div className={styles.container}>
-      <Tilt>
-        <div
-          className={`${styles.cardContainer} ${isClicked ? styles.clicked : ""}`}
-          onClick={handleClick}
-        >
-          <div className={styles.cardBorder}>
-            <div className={styles.cardContent}>
-              <span className={styles.greeting}>{greeting } </span>I am Abhishek Shrestha
-            </div>
+    <div className={styles.containerWrapper}>
+      <div className={styles.container}>
+        {cards.map((card, index) => (
+          <div
+            key={card.id}
+            className={styles.cardWrapper}
+            style={getCardStyle(index)}
+            onClick={() => handleCardClick(index)}
+          >
+            <Tilt options={tiltOptions}>
+              <div className={styles.cardContainer}>
+                {index === 0 && <div className={styles.cardBorder} />}
+                <div className={`${styles.cardContent} bg-gradient-to-tr ${card.color}`}>
+                  <p
+                    className={`${styles.greeting} ${
+                      isAnimating ? styles.visible : styles.hidden
+                    }`}
+                  >
+                    {greetings[greetingIndex]}
+                  </p>
+                  <p className={styles.name}>I am {card.name}</p>
+                </div>
+              </div>
+            </Tilt>
           </div>
-        </div>
-      </Tilt>
-      {isClicked && (
+        ))}
+      </div>
+      {expandedCard !== null && (
         <div className={styles.expandedContent}>
           <p>
-            Placeholder for about me section Lorem ipsum dolor sit amet consectetur
+            Placeholder for about me section. Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Ea autem enim reiciendis. Rerum quisquam optio voluptates
             ipsam repellendus numquam dicta.
           </p>
