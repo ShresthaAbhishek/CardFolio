@@ -83,6 +83,14 @@
   color: #ffffff;
 }
 
+.logo {
+  margin-bottom: 10px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+
 .expandedContent {
   width: 425px;
   padding: 20px;
