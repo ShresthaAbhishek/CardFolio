@@ -1,9 +1,9 @@
-/* app/components/CreditCard/CreditCard.module.css */
 .containerWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 120px; /* Adjusted to avoid navbar */
+  gap: 40px;
 }
 
 .container {
@@ -14,23 +14,29 @@
   height: 500px;
 }
 
+.card {
+  margin-bottom: 40px;
+}
+
 .cardWrapper {
   position: absolute;
   transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: pointer;
   will-change: transform;
+  
 }
 
 .cardContainer {
   width: 525px;
   height: 340px;
   border-radius: 25px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 3px;
+  padding: 3.5px;
   background-clip: padding-box;
   z-index: 1;
   transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
@@ -62,6 +68,30 @@
   font-size: 1.8rem;
   position: relative;
   z-index: 1;
+  
+}
+
+.discoverLogo {
+  position: absolute;
+  top: 15px;
+  right: 20px; /* Positioned towards the top-left */
+  width: 140px;
+  height: auto;
+  opacity: 0.9; /* Slight transparency for a clean look */
+}
+
+/* Second card - Abhishek Experience logo */
+.abhishekLogo {
+  position: absolute;
+  top: -75px; /* Positioned towards the bottom-right */
+  left: 20px;
+  width: 140px;
+  height: auto;
+  /* filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5)); */
+  opacity: 0.8;
+  /* transform: rotate(-5deg); Slight rotation for a dynamic feel */
+  mix-blend-mode: inherit; /* Blends logo with the card */
+  opacity: 0.8
 }
 
 .greeting {
@@ -83,14 +113,6 @@
   color: #ffffff;
 }
 
-.logo {
-  margin-bottom: 10px;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-}
-
-
 .expandedContent {
   width: 425px;
   padding: 20px;
@@ -101,7 +123,6 @@
   text-align: center;
   opacity: 0;
   animation: fadeIn 0.8s forwards ease-in;
- /* Positioned below all cards */
 }
 
 @keyframes gradientAnimation {
