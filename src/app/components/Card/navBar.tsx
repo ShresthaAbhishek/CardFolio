@@ -1,21 +1,43 @@
-"use client";
-import styles from "./Navbar.module.css";
-import { useState } from "react";
+"use client"
 
-export const Navbar = () => {
-  const [isHovered, setIsHovered] = useState(false);
+import { useState } from "react"
+import { motion } from "framer-motion"
+import styles from "./navbar.module.css"
 
-  const handleHover = () => {
-    setIsHovered(!isHovered);
-  };
+export function Navbar() {
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <nav className={`${styles.navbar} ${isHovered ? styles.hovered : ""}`} onMouseEnter={handleHover} onMouseLeave={handleHover}>
-      <div className={styles.logo}>Logo</div>
+    <motion.nav
+      className={styles.navbar}
+      animate={{
+        background: isHovered
+          ? "linear-gradient(135deg, #4A90E2, #9C2CF3, #FF007C, #F5A623, #4A90E2)"
+          : "linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(31, 29, 29, 0.162))",
+      }}
+      transition={{ duration: 0.3 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className={styles.logo}>Portfolio</div>
       <div className={styles.navItems}>
-        <a href="#item1" className={styles.navItem}>Item 1</a>
-        <a href="#item2" className={styles.navItem}>Item 2</a>
+        <motion.a
+          href="#about"
+          className={styles.navItem}
+          whileHover={{ backgroundColor: "rgba(25, 23, 23, 0.425)" }}
+          transition={{ duration: 0.2 }}
+        >
+          About
+        </motion.a>
+        <motion.a
+          href="#projects"
+          className={styles.navItem}
+          whileHover={{ backgroundColor: "rgba(25, 23, 23, 0.425)" }}
+          transition={{ duration: 0.2 }}
+        >
+          Projects
+        </motion.a>
       </div>
-    </nav>
-  );
-};
+    </motion.nav>
+  )
+}
