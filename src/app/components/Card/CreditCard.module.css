@@ -1,36 +1,26 @@
-.containerWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120px; /* Adjusted to avoid navbar */
-  gap: 40px;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: 500px;
-}
-
-.card {
-  margin-bottom: 40px;
+  height: 600px;
+  perspective: 1000px;
+  margin-top: 60px;
+  transform: translateX(20%);
 }
 
 .cardWrapper {
   position: absolute;
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: pointer;
   will-change: transform;
-  
+  bottom: 0;
+  left: 0;
 }
 
 .cardContainer {
-  width: 525px;
-  height: 340px;
+  width: 520px;
+  height: 338px;
   border-radius: 25px;
-  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +29,7 @@
   padding: 3.5px;
   background-clip: padding-box;
   z-index: 1;
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  transform-style: preserve-3d;
 }
 
 .cardBorder {
@@ -50,10 +40,11 @@
   bottom: 0;
   border-radius: 25px;
   padding: 3px;
-  background: linear-gradient(90deg, #4A90E2, #9C2CF3, #FF007C, #F5A623, #4A90E2);
+  background: linear-gradient(90deg, #4a90e2, #9c2cf3, #ff007c, #f5a623, #4a90e2);
   background-size: 400% 400%;
   animation: gradientAnimation 5s ease infinite;
   z-index: -1;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.6), 0 0 30px rgba(156, 44, 243, 0.4);
 }
 
 .cardContent {
@@ -65,64 +56,39 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.8rem;
   position: relative;
   z-index: 1;
-  
+  transform-style: preserve-3d;
+  padding: 20px;
 }
 
-.discoverLogo {
+.cardLogo {
   position: absolute;
-  top: 15px;
-  right: 20px; /* Positioned towards the top-left */
-  width: 140px;
-  height: auto;
-  opacity: 0.9; /* Slight transparency for a clean look */
-}
-
-/* Second card - Abhishek Experience logo */
-.abhishekLogo {
-  position: absolute;
-  top: -75px; /* Positioned towards the bottom-right */
-  left: 20px;
-  width: 140px;
-  height: auto;
-  /* filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5)); */
-  opacity: 0.8;
-  /* transform: rotate(-5deg); Slight rotation for a dynamic feel */
-  mix-blend-mode: inherit; /* Blends logo with the card */
-  opacity: 0.8
+  top: 20px;
+  right: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transform: translateZ(20px);
+  letter-spacing: 1px;
 }
 
 .greeting {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  transition: opacity 0.5s ease-in-out;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  transform: translateZ(30px);
 }
 
-.visible {
-  opacity: 1;
-}
-
-.hidden {
-  opacity: 0;
+.content {
+  font-size: 1.3rem;
+  text-align: center;
+  max-width: 80%;
+  transform: translateZ(20px);
 }
 
 .name {
-  font-size: 1.8rem;
-  color: #ffffff;
-}
-
-.expandedContent {
-  width: 425px;
-  padding: 20px;
-  margin-top: -110px;
-  border-radius: 8px;
-  background-color: #1a1a1a;
-  color: white;
-  text-align: center;
-  opacity: 0;
-  animation: fadeIn 0.8s forwards ease-in;
+  font-size: 2.5rem;
+  font-weight: bold;
+  transform: translateZ(20px);
 }
 
 @keyframes gradientAnimation {
@@ -134,16 +100,5 @@
   }
   100% {
     background-position: 0% 50%;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
